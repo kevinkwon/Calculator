@@ -19,12 +19,6 @@ typedef NS_ENUM(NSInteger, kStatusCode)
 };
 
 @interface ViewController : UIViewController {
-    double curValue;
-    double totalCurValue;
-    kStatusCode curStatusCode;
-    NSString *curInputValue;
-    // 결과값 표시를 위한 아웃렛 선언
-    UILabel *displayLabel;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender;

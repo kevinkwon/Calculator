@@ -14,12 +14,6 @@
 
 @implementation ViewController
 
-@synthesize curValue;
-@synthesize totalCurValue;
-@synthesize curInputValue;
-@synthesize curStatusCode;
-@synthesize displayLabel;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -45,8 +39,8 @@
 //    else {
 //        numPoint = [[sender titleLabel]text];
 //    }
-    curInputValue = [curInputValue stringByAppendingString:numPoint];
-    [self displayInputValue:curInputValue];
+    self.curInputValue = [self.curInputValue stringByAppendingString:numPoint];
+    [self displayInputValue:self.curInputValue];
 }
 
 - (IBAction)operationPressed:(UIButton *)sender
@@ -55,19 +49,19 @@
     
     if ([@"+" isEqualToString:operationText])
     {
-        [self calculation:curStatusCode curStatusCode:kStatusCodePlus];
+        [self calculation:self.curStatusCode curStatusCode:kStatusCodePlus];
     }
     else if([@"−" isEqualToString:operationText])
     {
-        [self calculation:curStatusCode curStatusCode:kStatusCodeMinus];
+        [self calculation:self.curStatusCode curStatusCode:kStatusCodeMinus];
     }
     else if([@"×" isEqualToString:operationText])
     {
-        [self calculation:curStatusCode curStatusCode:kStatusCodeMultiply];
+        [self calculation:self.curStatusCode curStatusCode:kStatusCodeMultiply];
     }
     else if([@"÷" isEqualToString:operationText])
     {
-        [self calculation:curStatusCode curStatusCode:kStatusCodeDivision];
+        [self calculation:self.curStatusCode curStatusCode:kStatusCodeDivision];
     }
     else if([@"C" isEqualToString:operationText])
     {
@@ -75,7 +69,7 @@
     }
     else if([@"=" isEqualToString:operationText])       // 계산
     {
-        [self calculation:curStatusCode curStatusCode:kStatusCodeReturn];
+        [self calculation:self.curStatusCode curStatusCode:kStatusCodeReturn];
     }
 }
 
@@ -101,33 +95,33 @@
         default:
             break;
     }
-    curStatusCode = cStatusCode;
+    self.curStatusCode = cStatusCode;
 }
 
 - (void)clearCalculation
 {
-    curInputValue = @"";
-    curValue = 0;
-    totalCurValue = 0;
+    self.curInputValue = @"";
+    self.curValue = 0;
+    self.totalCurValue = 0;
     
-    [self displayInputValue:curInputValue];
+    [self displayInputValue:self.curInputValue];
     
-    curStatusCode = kStatusCodeDefault;
+    self.curStatusCode = kStatusCodeDefault;
 }
 
 - (void)displayInputValue:(NSString *)displayText
 {
     NSString *CommaText;
     CommaText = [self ConvertComma:displayText];
-    [displayLabel setText:CommaText];
+    [self.displayLabel setText:CommaText];
 }
 
 - (void)displayCalculationValue
 {
     NSString *displayText;
-    displayText = [NSString stringWithFormat:@"%g", totalCurValue];
+    displayText = [NSString stringWithFormat:@"%g", self.totalCurValue];
     [self displayInputValue:displayText];
-    curInputValue = @"";
+    self.curInputValue = @"";
 }
 
 
@@ -188,36 +182,36 @@
 
 - (void)defaultCalculation
 {
-    curValue = [curInputValue doubleValue];
-    totalCurValue = curValue;
+    self.curValue = [self.curInputValue doubleValue];
+    self.totalCurValue = self.curValue;
     [self displayCalculationValue];
 }
 
 - (void)plusCalculation
 {
-    curValue = [curInputValue doubleValue];
-    totalCurValue = totalCurValue + curValue;
+    self.curValue = [self.curInputValue doubleValue];
+    self.totalCurValue = self.totalCurValue + self.curValue;
     [self displayCalculationValue];
 }
 
 - (void)minusCalculation
 {
-    curValue = [curInputValue doubleValue];
-    totalCurValue = totalCurValue - curValue;
+    self.curValue = [self.curInputValue doubleValue];
+    self.totalCurValue = self.totalCurValue - self.curValue;
     [self displayCalculationValue];
 }
 
 - (void)multiplyCalculation
 {
-    curValue = [curInputValue doubleValue];
-    totalCurValue = totalCurValue * curValue;
+    self.curValue = [self.curInputValue doubleValue];
+    self.totalCurValue = self.totalCurValue * self.curValue;
     [self displayCalculationValue];
 }
 
 - (void)divisionCalculation
 {
-    curValue = [curInputValue doubleValue];
-    totalCurValue = totalCurValue / curValue;
+    self.curValue = [self.curInputValue doubleValue];
+    self.totalCurValue = self.totalCurValue / self.curValue;
     [self displayCalculationValue];
 }
 
