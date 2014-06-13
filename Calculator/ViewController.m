@@ -25,7 +25,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    [self ClearCalculation];
+    [self clearCalculation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,14 +39,14 @@
     NSString *numPoint = [[sender titleLabel] text];
 //    if ([@"∙" isEqualToString:sender.titleLabel.text])
 //    {
-//        [self Calculation:curStatusCode CurStatusCode:STATUS_PLUS];
+//        [self Calculation:curStatusCode CurStatusCode:kStatusCodePlus];
 //        numPoint = @".";
 //    }
 //    else {
 //        numPoint = [[sender titleLabel]text];
 //    }
     curInputValue = [curInputValue stringByAppendingString:numPoint];
-    [self DisplayInputValue:curInputValue];
+    [self displayInputValue:curInputValue];
 }
 
 - (IBAction)operationPressed:(UIButton *)sender
@@ -55,78 +55,78 @@
     
     if ([@"+" isEqualToString:operationText])
     {
-        [self Calculation:curStatusCode CurStatusCode:STATUS_PLUS];
+        [self calculation:curStatusCode curStatusCode:kStatusCodePlus];
     }
     else if([@"−" isEqualToString:operationText])
     {
-        [self Calculation:curStatusCode CurStatusCode:STATUS_MINUS];
+        [self calculation:curStatusCode curStatusCode:kStatusCodeMinus];
     }
     else if([@"×" isEqualToString:operationText])
     {
-        [self Calculation:curStatusCode CurStatusCode:STATUS_MULTIPLY];
+        [self calculation:curStatusCode curStatusCode:kStatusCodeMultiply];
     }
     else if([@"÷" isEqualToString:operationText])
     {
-        [self Calculation:curStatusCode CurStatusCode:STATUS_DIVISION];
+        [self calculation:curStatusCode curStatusCode:kStatusCodeDivision];
     }
     else if([@"C" isEqualToString:operationText])
     {
-        [self ClearCalculation];
+        [self clearCalculation];
     }
     else if([@"=" isEqualToString:operationText])       // 계산
     {
-        [self Calculation:curStatusCode CurStatusCode:STATUS_RETURN];
+        [self calculation:curStatusCode curStatusCode:kStatusCodeReturn];
     }
 }
 
-- (void)Calculation:(kStatusCode)StatusCode CurStatusCode:(kStatusCode)cStatusCode
+- (void)calculation:(kStatusCode)StatusCode curStatusCode:(kStatusCode)cStatusCode
 {
     switch(StatusCode)
     {
-        case STATUS_DEFAULT:
-        case STATUS_RETURN:
-            [self DefaultCalculation];
+        case kStatusCodeDefault:
+            [self defaultCalculation];
             break;
-        case STATUS_DIVISION:
-            [self DivisionCalculation];
+        case kStatusCodeDivision:
+            [self divisionCalculation];
             break;
-        case STATUS_MULTIPLY:
-            [self MultiplyCalculation];
+        case kStatusCodeMultiply:
+            [self multiplyCalculation];
             break;
-        case STATUS_MINUS:
-            [self MinusCalculation];
+        case kStatusCodeMinus:
+            [self minusCalculation];
             break;
-            
-        case STATUS_PLUS:
-            [self PlusCalculation];
+        case kStatusCodePlus:
+            [self plusCalculation];
+            break;
+        default:
             break;
     }
     curStatusCode = cStatusCode;
 }
 
-- (void)ClearCalculation
+- (void)clearCalculation
 {
     curInputValue = @"";
     curValue = 0;
     totalCurValue = 0;
     
-    [self DisplayInputValue:curInputValue];
+    [self displayInputValue:curInputValue];
     
-    curStatusCode = STATUS_DEFAULT;
+    curStatusCode = kStatusCodeDefault;
 }
 
-- (void)DisplayInputValue:(NSString *)displayText
+- (void)displayInputValue:(NSString *)displayText
 {
     NSString *CommaText;
     CommaText = [self ConvertComma:displayText];
     [displayLabel setText:CommaText];
 }
 
-- (void)DisplayCalculationValue
+- (void)displayCalculationValue
 {
     NSString *displayText;
     displayText = [NSString stringWithFormat:@"%g", totalCurValue];
-    [self DisplayInputValue:displayText];
+    [self displayInputValue:displayText];
     curInputValue = @"";
 }
 
@@ -186,44 +186,39 @@
     return returnString;
 }
 
-- (void)DefaultCalculation
+- (void)defaultCalculation
 {
     curValue = [curInputValue doubleValue];
     totalCurValue = curValue;
-    [self DisplayCalculationValue];
+    [self displayCalculationValue];
 }
 
-- (void)MinusCalculation
-{
-    curValue = [curInputValue doubleValue];
-    totalCurValue = totalCurValue - curValue;
-    [self DisplayCalculationValue];
-}
-
-- (void)PlusCalculation
+- (void)plusCalculation
 {
     curValue = [curInputValue doubleValue];
     totalCurValue = totalCurValue + curValue;
-    [self DisplayCalculationValue];
+    [self displayCalculationValue];
 }
 
-- (void)MultiplyCalculation
+- (void)minusCalculation
+{
+    curValue = [curInputValue doubleValue];
+    totalCurValue = totalCurValue - curValue;
+    [self displayCalculationValue];
+}
+
+- (void)multiplyCalculation
 {
     curValue = [curInputValue doubleValue];
     totalCurValue = totalCurValue * curValue;
-    [self DisplayCalculationValue];
+    [self displayCalculationValue];
 }
 
-- (void)DivisionCalculation
+- (void)divisionCalculation
 {
     curValue = [curInputValue doubleValue];
     totalCurValue = totalCurValue / curValue;
-    [self DisplayCalculationValue];
-}
-
-- (void)ReturnCalculationValue
-{
-    totalCurValue = 0;
+    [self displayCalculationValue];
 }
 
 @end

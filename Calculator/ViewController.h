@@ -10,12 +10,12 @@
 
 typedef NS_ENUM(NSInteger, kStatusCode)
 {
-    STATUS_DEFAULT = 0,
-    STATUS_DIVISION,
-    STATUS_MULTIPLY,
-    STATUS_MINUS,
-    STATUS_PLUS,
-    STATUS_RETURN
+    kStatusCodeDefault = 0,
+    kStatusCodeDivision,
+    kStatusCodeMultiply,
+    kStatusCodeMinus,
+    kStatusCodePlus,
+    kStatusCodeReturn
 };
 
 @interface ViewController : UIViewController {
@@ -29,19 +29,19 @@ typedef NS_ENUM(NSInteger, kStatusCode)
 
 - (IBAction)digitPressed:(UIButton *)sender;
 - (IBAction)operationPressed:(UIButton *)sender;
-- (void)Calculation:(kStatusCode)StatusCode CurStatusCode:(kStatusCode)cStatusCode;
-- (void)ClearCalculation;
-- (void)DisplayInputValue:(NSString *)displayText;
-- (void)DisplayCalculationValue;
+- (void)calculation:(kStatusCode)StatusCode curStatusCode:(kStatusCode)cStatusCode;
+- (void)clearCalculation;
+- (void)displayInputValue:(NSString *)displayText;
+- (void)displayCalculationValue;
 
 - (NSString *)ConvertComma:(NSString *)data;
 
-- (void)MinusCalculation;
-- (void)PlusCalculation;
-- (void)MultiplyCalculation;
-- (void)DivisionCalculation;
+- (void)minusCalculation;
+- (void)plusCalculation;
+- (void)multiplyCalculation;
+- (void)divisionCalculation;
 - (void)remainCalculationValue;
-- (void)ReturnCalculationValue;
+- (void)returnCalculationValue;
 
 @property Float64 curValue; // 현재 입력된 값을 프로퍼티로 선언
 @property Float64 totalCurValue; // 최종계산값을 프로퍼티로 선언
